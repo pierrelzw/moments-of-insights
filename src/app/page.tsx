@@ -1,7 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import DynamicBackground from '@/components/DynamicBackground';
 import QuoteDisplay from '@/components/QuoteDisplay';
+import DonationModal from '@/components/DonationModal';
 
 export default function Home() {
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
   return (
     <>
       <DynamicBackground />
@@ -29,17 +35,21 @@ export default function Home() {
             >
               made by zhiwei
             </a>
-            <a 
-              href="https://ko-fi.com/yourusername" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors duration-200"
+            <button
+              onClick={() => setIsDonationModalOpen(true)}
+              className="hover:text-blue-600 transition-colors duration-200 cursor-pointer"
             >
-              buy me a coffee
-            </a>
+              给他买杯咖啡
+            </button>
           </div>
         </footer>
       </div>
+
+      {/* 打赏模态框 */}
+      <DonationModal 
+        isOpen={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+      />
     </>
   );
 }
