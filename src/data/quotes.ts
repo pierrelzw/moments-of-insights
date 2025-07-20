@@ -86,24 +86,22 @@ export const quotes: Quote[] = [
   }
 ];
 
-// Keep track of recently shown quotes to avoid immediate repetition
-const recentQuotes: Quote[] = [];
-const maxRecentQuotes = 5;
-
-export function getRandomQuote(): Quote {
-  // Filter out recently shown quotes if we have enough quotes
-  const availableQuotes = quotes.length > maxRecentQuotes 
-    ? quotes.filter(quote => !recentQuotes.includes(quote))
+/**
+ * Get a random quote, optionally excluding recently shown quotes
+ * @param excludeQuotes - Array of quotes to exclude from selection
+ * @returns A randomly selected quote
+ */
+export function getRandomQuote(excludeQuotes: Quote[] = []): Quote {
+  // If we have quotes to exclude and enough total quotes, filter them out
+  const availableQuotes = excludeQuotes.length > 0 && quotes.length > excludeQuotes.length
+    ? quotes.filter(quote => !excludeQuotes.some(excluded => 
+        excluded.text === quote.text && excluded.author === quote.author
+      ))
     : quotes;
   
-  const randomIndex = Math.floor(Math.random() * availableQuotes.length);
-  const selectedQuote = availableQuotes[randomIndex];
+  // Fallback to all quotes if filtering results in empty array
+  const finalQuotes = availableQuotes.length > 0 ? availableQuotes : quotes;
   
-  // Add to recent quotes and maintain the limit
-  recentQuotes.push(selectedQuote);
-  if (recentQuotes.length > maxRecentQuotes) {
-    recentQuotes.shift();
-  }
-  
-  return selectedQuote;
+  const randomIndex = Math.floor(Math.random() * finalQuotes.length);
+  return finalQuotes[randomIndex];
 }

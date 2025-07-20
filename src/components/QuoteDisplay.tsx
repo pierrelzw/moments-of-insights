@@ -3,23 +3,42 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Quote, getRandomQuote } from '@/data/quotes';
 
+const MAX_RECENT_QUOTES = 5;
+
 export default function QuoteDisplay() {
   const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
+  const [recentQuotes, setRecentQuotes] = useState<Quote[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [fadeClass, setFadeClass] = useState('opacity-100');
 
   const changeQuote = useCallback(() => {
     setFadeClass('opacity-0');
     setTimeout(() => {
-      setCurrentQuote(getRandomQuote());
+      setRecentQuotes(prevRecent => {
+        const newQuote = getRandomQuote(prevRecent);
+        setCurrentQuote(newQuote);
+        
+        // Update recent quotes list
+        const updated = [...prevRecent, newQuote];
+        return updated.length > MAX_RECENT_QUOTES 
+          ? updated.slice(-MAX_RECENT_QUOTES) 
+          : updated;
+      });
+      
       setFadeClass('opacity-100');
     }, 300);
-  }, []);
+  }, []); // 移除 recentQuotes 依赖
 
   useEffect(() => {
     // Set initial quote
-    setCurrentQuote(getRandomQuote());
+    const initialQuote = getRandomQuote();
+    setCurrentQuote(initialQuote);
+    setRecentQuotes([initialQuote]);
     setIsLoaded(true);
+  }, []); // 只在组件挂载时运行一次
+
+  useEffect(() => {
+    if (!isLoaded) return;
     
     // Change quote every 30 seconds
     const interval = setInterval(changeQuote, 30000);
@@ -42,7 +61,7 @@ export default function QuoteDisplay() {
       clearInterval(interval);
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [changeQuote]);
+  }, [changeQuote, isLoaded]); // 依赖于 changeQuote 和 isLoaded
 
   if (!currentQuote || !isLoaded) {
     return null;
