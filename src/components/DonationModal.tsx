@@ -63,6 +63,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
         {/* 微信二维码 */}
         <div className="flex flex-col items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src="/wechat-donate.jpg" 
             alt="微信赞赏码" 
