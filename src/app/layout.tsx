@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: 'swap',
-});
+// 使用系统字体，避免Google Fonts CDN
+const fontFamily = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif';
 
 export const metadata: Metadata = {
   title: "A Little Inspiration",
@@ -42,7 +38,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-sans antialiased`}
+        className="font-sans antialiased"
+        style={{ fontFamily }}
       >
         {children}
       </body>
