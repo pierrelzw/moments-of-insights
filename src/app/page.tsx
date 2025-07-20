@@ -22,12 +22,12 @@ export default function Home() {
         <footer className="mb-8 text-center">
           <div className="text-sm text-gray-600 space-x-4">
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/pierrelzw" 
               target="_blank" 
               rel="noopener noreferrer"
               className="hover:text-blue-600 transition-colors duration-200"
             >
-              made by you
+              made by zhiwei
             </a>
             <a 
               href="https://ko-fi.com/yourusername" 
