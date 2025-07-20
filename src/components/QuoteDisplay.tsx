@@ -68,30 +68,35 @@ export default function QuoteDisplay() {
   }
 
   return (
-    <div 
-      className="text-center max-w-4xl mx-auto px-8 cursor-pointer select-none group focus:outline-none"
-      onClick={changeQuote}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          changeQuote();
-        }
-      }}
-      aria-label="Click to see a new quote"
-    >
+    <div className="text-center max-w-4xl mx-auto px-8">
       <div className={`transition-opacity duration-300 ${fadeClass}`}>
-        <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 leading-relaxed mb-6 group-hover:text-gray-700 transition-colors duration-200">
+        <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 leading-relaxed mb-6 select-text">
           &ldquo;{currentQuote.text}&rdquo;
         </blockquote>
-        <cite className="text-lg md:text-xl text-gray-600 font-medium group-hover:text-gray-500 transition-colors duration-200">
+        <cite className="text-lg md:text-xl text-gray-600 font-medium select-text">
           — {currentQuote.author}
         </cite>
       </div>
-      <div className="mt-8 opacity-0 group-hover:opacity-60 transition-opacity duration-300">
+      
+      {/* 切换按钮 */}
+      <div className="mt-12 flex flex-col items-center space-y-4">
+        <button
+          onClick={changeQuote}
+          className="group transition-all duration-200 focus:outline-none"
+          aria-label="Get a new quote"
+        >
+          <svg 
+            className="w-6 h-6 transition-all duration-300 text-gray-400 hover:text-gray-600 group-hover:rotate-180" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
+        
         <p className="text-sm text-gray-400">
-          Click or press <kbd className="px-1.5 py-0.5 text-xs bg-gray-200 rounded">Space</kbd> for a new quote
+          或按 <kbd className="px-1.5 py-0.5 text-xs bg-gray-200 rounded">Space</kbd> 键切换
         </p>
       </div>
     </div>
