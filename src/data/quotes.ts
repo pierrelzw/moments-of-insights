@@ -87,7 +87,7 @@ export const quotes: Quote[] = [
 ];
 
 // Keep track of recently shown quotes to avoid immediate repetition
-let recentQuotes: Quote[] = [];
+const recentQuotes: Quote[] = [];
 const maxRecentQuotes = 5;
 
 export function getRandomQuote(): Quote {
