@@ -50,7 +50,7 @@ export default function QuoteDisplay() {
 
   return (
     <div 
-      className="text-center max-w-4xl mx-auto px-8 cursor-pointer select-none group"
+      className="text-center max-w-4xl mx-auto px-8 cursor-pointer select-none group focus:outline-none"
       onClick={changeQuote}
       role="button"
       tabIndex={0}
@@ -64,7 +64,7 @@ export default function QuoteDisplay() {
     >
       <div className={`transition-opacity duration-300 ${fadeClass}`}>
         <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 leading-relaxed mb-6 group-hover:text-gray-700 transition-colors duration-200">
-          "{currentQuote.text}"
+          &ldquo;{currentQuote.text}&rdquo;
         </blockquote>
         <cite className="text-lg md:text-xl text-gray-600 font-medium group-hover:text-gray-500 transition-colors duration-200">
           — {currentQuote.author}
